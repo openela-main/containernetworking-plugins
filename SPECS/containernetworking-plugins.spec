@@ -17,14 +17,14 @@ go build -buildmode pie -compiler gc -tags="rpm_crashtraceback ${BUILDTAGS:-}" -
 Epoch: 1
 Name: containernetworking-plugins
 Version: 1.3.0
-Release: 4%{?dist}
+Release: 6%{?dist}
 Summary: CNI network plugins
 License: ASL 2.0
 URL: https://%{provider_prefix}
 Source0: https://%{provider_prefix}/archive/v%{version}.tar.gz
 # https://fedoraproject.org/wiki/PackagingDrafts/Go#Go_Language_Architectures
 ExclusiveArch: %{go_arches}
-BuildRequires: golang >= 1.16.6
+BuildRequires: golang >= 1.20.10
 BuildRequires: git
 BuildRequires: /usr/bin/go-md2man
 BuildRequires: systemd-devel
@@ -122,6 +122,14 @@ export GOPATH=%{buildroot}/%{gopath}:$(pwd)/vendor:%{gopath}
 %{_unitdir}/cni-dhcp.socket
 
 %changelog
+* Sun Dec 03 2023 Lokesh Mandvekar <lsm5@redhat.com> - 1:1.3.0-6
+- rebuild because of CVE-2023-29409
+- Related: Jira:RHEL-7453
+
+* Mon Sep 11 2023 Jindrich Novy <jnovy@redhat.com> - 1:1.3.0-5
+- rebuild because of CVE-2023-39318 CVE-2023-39319 CVE-2023-39321 CVE-2023-39322
+- Related: #RHEL-2780
+
 * Fri Aug 11 2023 Jindrich Novy <jnovy@redhat.com> - 1:1.3.0-4
 - add Epoch in Provides
 - Related: #2176063
