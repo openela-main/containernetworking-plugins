@@ -19,15 +19,15 @@ go build -buildmode pie -compiler gc -tags="rpm_crashtraceback ${BUILDTAGS:-}" -
 
 Epoch: 1
 Name: containernetworking-plugins
-Version: 1.3.0
-Release: 8%{?dist}
+Version: 1.4.0
+Release: 2%{?dist}
 Summary: CNI network plugins
 License: ASL 2.0
 URL: https://%{provider_prefix}
 Source0: https://%{provider_prefix}/archive/v%{version}.tar.gz
 # https://fedoraproject.org/wiki/PackagingDrafts/Go#Go_Language_Architectures
 ExclusiveArch: %{go_arches}
-BuildRequires: golang >= 1.20.6
+BuildRequires: golang >= 1.17.7
 BuildRequires: git
 BuildRequires: /usr/bin/go-md2man
 BuildRequires: systemd-devel
@@ -44,6 +44,7 @@ when the container is deleted.
 %prep
 %autosetup -Sgit -n %{repo}-%{version}
 rm -rf plugins/main/windows
+sed -i 's,/opt/cni/bin/,/usr/libexec/cni/,' plugins/ipam/dhcp/systemd/cni-dhcp.service
 
 %build
 export ORG_PATH="%{provider}.%{provider_tld}/%{project}"
@@ -125,21 +126,17 @@ export GOPATH=%{buildroot}/%{gopath}:$(pwd)/vendor:%{gopath}
 %{_unitdir}/cni-dhcp.socket
 
 %changelog
-* Tue Jan 23 2024 Jindrich Novy <jnovy@redhat.com> - 1:1.3.0-8
-- Make the module buildable again
-- Resolves: RHEL-16299
+* Fri Feb 23 2024 Jindrich Novy <jnovy@redhat.com> - 1:1.4.0-2
+- rebuild
+- Resolves: RHEL-18390
 
-* Sat Dec 02 2023 Lokesh Mandvekar <lsm5@redhat.com> - 1:1.3.0-7
-- rebuild with golang 1.20.10 for CVE-2023-39321
-- Related: Jira:RHEL-4514
+* Tue Jan 02 2024 Jindrich Novy <jnovy@redhat.com> - 1:1.4.0-1
+- update to https://github.com/containernetworking/plugins/releases/tag/v1.4.0
+- Related: Jira:RHEL-2110
 
-* Sat Dec 02 2023 Lokesh Mandvekar <lsm5@redhat.com> - 1:1.3.0-6
-- rebuild with golang 1.20.10 or higher
-- Related: Jira:RHEL-4514
-
-* Fri Dec 01 2023 Lokesh Mandvekar <lsm5@redhat.com> - 1:1.3.0-5
-- rebuild with golang 1.20.10
-- Related: Jira:RHEL-4514
+* Thu Sep 14 2023 Jindrich Novy <jnovy@redhat.com> - 1:1.3.0-5
+- fix path to dhcp service
+- Resolves: #RHEL-3789
 
 * Fri Aug 11 2023 Jindrich Novy <jnovy@redhat.com> - 1:1.3.0-4
 - add Epoch in Provides
