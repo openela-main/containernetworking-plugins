@@ -16,8 +16,8 @@ go build -buildmode pie -compiler gc -tags="rpm_crashtraceback ${BUILDTAGS:-}" -
 
 Epoch: 1
 Name: containernetworking-plugins
-Version: 1.4.0
-Release: 6%{?dist}
+Version: 1.5.1
+Release: 2%{?dist}
 Summary: CNI network plugins
 License: ASL 2.0
 URL: https://%{provider_prefix}
@@ -123,25 +123,21 @@ export GOPATH=%{buildroot}/%{gopath}:$(pwd)/vendor:%{gopath}
 %{_unitdir}/cni-dhcp.socket
 
 %changelog
-* Tue Oct 08 2024 Jindrich Novy <jnovy@redhat.com> - 1:1.4.0-6
-- rebuild for CVE-2024-34156
-- Resolves: RHEL-57915
+* Tue Aug 20 2024 Jindrich Novy <jnovy@redhat.com> - 1:1.5.1-2
+- rebuild for CVE-2024-24791
+- Resolves: RHEL-47166
 
-* Tue Jul 23 2024 Jindrich Novy <jnovy@redhat.com> - 1:1.4.0-5
-- rebuild for CVE-2024-24783
-- Resolves: RHEL-28431
+* Tue Jul 02 2024 Jindrich Novy <jnovy@redhat.com> - 1:1.5.1-1
+- update to https://github.com/containernetworking/plugins/releases/tag/v1.5.1
+- Related: RHEL-27608
 
-* Fri Jun 21 2024 Jindrich Novy <jnovy@redhat.com> - 1:1.4.0-4
-- rebuild for CVE-2024-1394
-- Resolves: RHEL-40809
+* Wed May 29 2024 Jindrich Novy <jnovy@redhat.com> - 1:1.5.0-1
+- update to https://github.com/containernetworking/plugins/releases/tag/v1.5.0
+- Related: RHEL-27608
 
-* Thu May 02 2024 Jindrich Novy <jnovy@redhat.com> - 1:1.4.0-3
-- rebuild for CVE-2023-45290
-- Resolves: RHEL-28384
-
-* Mon Mar 04 2024 Jindrich Novy <jnovy@redhat.com> - 1:1.4.0-2
-- rebuild
-- Related: RHEL-18372
+* Tue Mar 12 2024 Jindrich Novy <jnovy@redhat.com> - 1:1.4.1-1
+- update to https://github.com/containernetworking/plugins/releases/tag/v1.4.1
+- Resolves: RHEL-28855
 
 * Tue Jan 02 2024 Jindrich Novy <jnovy@redhat.com> - 1:1.4.0-1
 - update to https://github.com/containernetworking/plugins/releases/tag/v1.4.0
