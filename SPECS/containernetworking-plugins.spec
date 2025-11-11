@@ -16,8 +16,8 @@ go build -buildmode pie -compiler gc -tags="rpm_crashtraceback ${BUILDTAGS:-}" -
 
 Epoch: 1
 Name: containernetworking-plugins
-Version: 1.6.2
-Release: 2%{?dist}
+Version: 1.7.1
+Release: 1%{?dist}
 Summary: CNI network plugins
 License: ASL 2.0
 URL: https://%{provider_prefix}
@@ -123,9 +123,9 @@ export GOPATH=%{buildroot}/%{gopath}:$(pwd)/vendor:%{gopath}
 %{_unitdir}/cni-dhcp.socket
 
 %changelog
-* Wed Jun 04 2025 Jindrich Novy <jnovy@redhat.com> - 1:1.6.2-2
-- rebuild to fix CVE-2025-22871 containernetworking-plugins: Request smuggling due to acceptance of invalid chunked data in net/http
-- Resolves: RHEL-90031
+* Fri May 02 2025 Jindrich Novy <jnovy@redhat.com> - 1:1.7.1-1
+- update to https://github.com/containernetworking/plugins/releases/tag/v1.7.1
+- Resolves: RHEL-89428
 
 * Fri Jan 10 2025 Jindrich Novy <jnovy@redhat.com> - 1:1.6.2-1
 - update to https://github.com/containernetworking/plugins/releases/tag/v1.6.2
