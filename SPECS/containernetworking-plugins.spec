@@ -20,7 +20,7 @@ go build -buildmode pie -compiler gc -tags="rpm_crashtraceback ${BUILDTAGS:-}" -
 Epoch: 1
 Name: containernetworking-plugins
 Version: 1.4.0
-Release: 8%{?dist}
+Release: 10%{?dist}
 Summary: CNI network plugins
 License: ASL 2.0
 URL: https://%{provider_prefix}
@@ -126,6 +126,14 @@ export GOPATH=%{buildroot}/%{gopath}:$(pwd)/vendor:%{gopath}
 %{_unitdir}/cni-dhcp.socket
 
 %changelog
+* Tue Sep 01 2026 Jindrich Novy <jnovy@redhat.com> - 1:1.4.0-10
+- rebuild with updated Go to fix CVE-2026-42499
+- Resolves: RHEL-241534 RHEL-241902 RHEL-242024 RHEL-242099 RHEL-242217 RHEL-242335
+
+* Thu Aug 20 2026 Jindrich Novy <jnovy@redhat.com> - 1:1.4.0-9
+- rebuild with Go 1.25.11 to fix CVE-2026-33818, CVE-2026-56853, CVE-2026-56858,
+  CVE-2026-56859, CVE-2026-56860, CVE-2026-56862
+
 * Tue Feb 17 2026 Jindrich Novy <jnovy@redhat.com> - 1:1.4.0-8
 - rebuild for CVE-2025-68121
 - Resolves: RHEL-149265
